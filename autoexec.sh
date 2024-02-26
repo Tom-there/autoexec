@@ -2,20 +2,8 @@
 # autoexec to setup user and needed packages to set up user environment ON ARCH
 # by Tom Schreiner <tom.schreiner@gmx.de>
 # CONTENTS
-# 0   global:
-# 0.1 variables
-# 0.2 functions
 # 1   init
-# 1.1 check if this is arch
-# 1.2 welcome the user
-# 1.3 update pacman
-# 1.4 refreshing arch keyring
-# 1.5 installing base packages
-# 1.6 NTP sync
 # 2   User creation
-# 2.1 username
-# 2.2 password
-# 2.3 user creation process
 
 # 0.1 variables
 username="_"
@@ -47,7 +35,7 @@ welcome(){
 welcome || usererror
 
 # 1.3 update pacman
-pacman -Syu
+pacman -Syu >/dev/null 2>&1
 
 # 1.4 refreshing arch keyring
 refreshing(){
