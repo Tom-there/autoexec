@@ -4,19 +4,24 @@
 # CONTENTS
 # TBD
 
+installpkg(){
+  pacman --noconfirm --needed -S "$1" >/dev/null 2>&1
+}
 
-# yayinstall(){
-#  	whiptail --infobox "Installing 'yay' manually." 7 50
-#  	sudo -u "$username" mkdir -p "$repodir/yay"
-#  	sudo -u "$username" git -C "$repodir" clone --depth 1 --single-branch \
-#  		--no-tags -q "https://aur.archlinux.org/yay.git" "$repodir/yay" ||
-#  		{
-#  			cd "$repodir/yay" || return 1
-#  			sudo -u "$username" git pull --force origin master
-#  		}
-#  	cd "$repodir/yay" || exit 1
-#  	sudo -u "$username" -D "$repodir/yay" \
-#  		makepkg --noconfirm -si >/dev/null 2>&1 || return 1
-#
-# }
-# yayinstall || error "Failed to install yay"
+#installinf ohmyzsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+for x in xf86-video-vesa xorg-server xorg-xinit; do
+  dialog --title "installing..." --infobox "Installing $x" 10 50
+  installpkg "$x"
+done
+
+cd
+git clone --recurse-submodules https://github.com/fairyglade/ly
+cd ly
+make
+make run
+make installsystemd
+systemctl enable ly.service
+cd
+rm ly

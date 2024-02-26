@@ -32,7 +32,6 @@ pacman --noconfirm --needed -Sy dialog || error "Are you sure this is an arch di
 # 1.2 welcome
 welcome(){
   dialog --title "Welcome!" --msgbox "This script is designed to install everything you need to be productive!" 10 50
-  dialog --title "Welcome!" --yesno "Are you ready to set up your user?" 10 50
 }
 welcome || usererror
 
