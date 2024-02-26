@@ -34,8 +34,10 @@ welcome(){
 }
 welcome || usererror
 
-# 1.3 update pacman
+# 1.3 update and configure pacman
 pacman -Syu >/dev/null 2>&1
+grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
+sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 
 # 1.4 refreshing arch keyring
 refreshing(){
@@ -46,7 +48,7 @@ refreshing
 
 # 1.5 installing base packages
 for x in curl ca-certificates base-devel git ntp zsh; do
-  whiptail --title "installing..." --infobox "Installing $x"
+  whiptail --title "installing..." --infobox "Installing $x" 10 50
   installpkg "$x"
 done
 
