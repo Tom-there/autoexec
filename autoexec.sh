@@ -82,8 +82,6 @@ getpassword || usererror
 
 # 2.3 user creation process
 usercreation(){
-# check if user exists already
-  ! { id -q "$username" > /dev/null 2>&1; } || whiptail --title "WARNING" --yes-button "continue" --no-button "abort!" --yesno "The user '$username' already exists?!" 10 50 || usererror
 # add user to system
   useradd -m -g wheel -s /bin/zsh "$username" >/dev/null 2>&1 || usermod -a -G wheel "$username" && mkdir -p /home/"$username" && chown "$username":wheel /home/"$username"
   export repodir="/home/$username/.local/src"
