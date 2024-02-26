@@ -99,5 +99,7 @@ usercreation || error "Error while creating user"
 # 3 next
 clear
 echo "next autoexec will be downloaded now"
-curl -L https://raw.githubusercontent.com/Tom-there/autoexec/main/vm.sh > "/home/$username/autoexec.sh"
+curl -L https://raw.githubusercontent.com/Tom-there/autoexec/main/vm.sh
+chmod +x vm.sh
+mv vm.sh "/home/$username/autoexec.sh"
 rm $0
