@@ -4,7 +4,7 @@
 # CONTENTS
 # 1 init
 # 2 User creation
-# 3 Installation of programs
+# 3 Download of next autoexec
 
 # 0.1 variables
 username="_"
@@ -95,8 +95,8 @@ usercreation(){
 }
 usercreation || error "Error while creating user"
 
-# 3 Installation
-
-# yay
-
-#graphics
+# 3 next
+clear
+echo "next autoexec will be downloaded now"
+curl -L https://raw.githubusercontent.com/Tom-there/autoexec/main/vm.sh > "/home/$username/autoexec.sh"
+rm $0
