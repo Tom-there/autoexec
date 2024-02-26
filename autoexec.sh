@@ -82,7 +82,7 @@ usercreation(){
   ! { id -q "$username" > /dev/null 2>&1; } || whiptail --title "WARNING" --yes-button "continue" --no-button "abort!" --yesno "The user '$username' already exists?!" 10 50 || usererror
 # add user to system
   useradd -m -g wheel -s /bin/zsh "$username" >/dev/null 2>&1 || usermod -a -G wheel "$username" && mkdir -p /home/"$username" && chown "$username":wheel /home/"$username"
-  echo "$username:$userpass1" | chpassword
+  echo "$username:$userpass1" | chpasswd
   unset userpass1 userpass2
 # edit sudoers file, so that wheel can run sudo
   echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
