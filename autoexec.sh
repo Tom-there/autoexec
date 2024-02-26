@@ -33,7 +33,7 @@ pacman --noconfirm --needed -Sy dialog || error "Are you sure this is an arch di
 welcome(){
   dialog --title "Welcome!" --msgbox "This script is designed to install everything you need to be productive!" 10 50
 }
-welcome || usererror
+welcome
 
 # 1.3 update and configure pacman
 pacman -Syu >/dev/null 2>&1
