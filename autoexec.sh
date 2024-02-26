@@ -2,8 +2,9 @@
 # autoexec to setup user and needed packages to set up user environment ON ARCH
 # by Tom Schreiner <tom.schreiner@gmx.de>
 # CONTENTS
-# 1   init
-# 2   User creation
+# 1 init
+# 2 User creation
+# 3 Installation of programs
 
 # 0.1 variables
 username="_"
@@ -84,9 +85,33 @@ usercreation(){
   ! { id -q "$username" > /dev/null 2>&1; } || whiptail --title "WARNING" --yes-button "continue" --no-button "abort!" --yesno "The user '$username' already exists?!" 10 50 || usererror
 # add user to system
   useradd -m -g wheel -s /bin/zsh "$username" >/dev/null 2>&1 || usermod -a -G wheel "$username" && mkdir -p /home/"$username" && chown "$username":wheel /home/"$username"
+  export repodir="/home/$username/.local/src"
+  mkdir -p "$repodir"
+  chown -R "$username":wheel "$(dirname "$repodir")"
   echo "$username:$userpass1" | chpasswd
   unset userpass1 userpass2
 # edit sudoers file, so that wheel can run sudo
   echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 }
 usercreation || error "Error while creating user"
+
+# 3 Installation
+
+# yay
+yayinstall(){
+  	whiptail --infobox "Installing 'yay' manually." 7 50
+  	sudo -u "$username" mkdir -p "$repodir/yay"
+  	sudo -u "$username" git -C "$repodir" clone --depth 1 --single-branch \
+  		--no-tags -q "https://aur.archlinux.org/yay.git" "$repodir/yay" ||
+  		{
+  			cd "$repodir/yay" || return 1
+  			sudo -u "$username" git pull --force origin master
+  		}
+  	cd "$repodir/yay" || exit 1
+  	sudo -u "$username" -D "$repodir/yay" \
+  		makepkg --noconfirm -si >/dev/null 2>&1 || return 1
+
+}
+yayinstall || error "Failed to install yay"
+
+#graphics
