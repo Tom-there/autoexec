@@ -42,7 +42,7 @@ pacman --noconfirm --needed -Sy libnewt || error "Are you sure this is an arch d
 # 1.2 welcome
 welcome(){
   whiptail --title "Welcome!" --msgbox "This script is designed to install everything you need to be productive!" 10 50
-  whiptail --title "Welcome!" --yes-button "Lets go!" --no-button "wait..." -- yesno "Are you ready to set up your user?" 10 50
+  whiptail --title "Welcome!" --yes-button "Lets go!" --no-button "wait..." --yesno "Are you ready to set up your user?" 10 50
 }
 welcome || usererror
 
