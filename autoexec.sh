@@ -7,6 +7,7 @@
 # 3 Download of next autoexec
 
 # 0.1 variables
+repodir="-"
 username="_"
 userpass1="_"
 userpass2="-"
