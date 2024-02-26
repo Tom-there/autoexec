@@ -94,9 +94,14 @@ usercreation(){
 usercreation || error "Error while creating user"
 
 # 3 next
-clear
-echo "next autoexec will be downloaded now"
-curl -LOsS https://raw.githubusercontent.com/Tom-there/autoexec/main/vm.sh
-chmod +x vm.sh
-mv vm.sh "/home/$username/autoexec.sh"
-rm $0
+#clear
+#echo "next autoexec will be downloaded now"
+#curl -LOsS https://raw.githubusercontent.com/Tom-there/autoexec/main/vm.sh
+#chmod +x vm.sh
+#mv vm.sh "/home/$username/autoexec.sh"
+#rm $0
+
+for x in xf86-video-vesa xorg-server xorg-xinit ly; do
+  dialog --title "installing..." --infobox "Installing $x" 10 50
+  installpkg "$x"
+done
